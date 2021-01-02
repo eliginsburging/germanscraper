@@ -1,0 +1,6 @@
+*.pyc
+toscrape.txt
+examples.txt
+*.html
+*.csv
+*.log

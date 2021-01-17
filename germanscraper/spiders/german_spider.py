@@ -8,8 +8,10 @@ from helpers import (yesno_prompt,
                      eyerelief)
 
 
+
 class GermanSpider(scrapy.Spider):
     name = "germanspider"
+    faillist = []
 
     def start_requests(self):
         with open('toscrape.txt') as f:
@@ -35,6 +37,10 @@ class GermanSpider(scrapy.Spider):
             trlist += response.xpath('//*[@id="inner-content"]/section[2]/descendant::*/div[@class="col1"]/div[@class="trans-line"]/div/text()').getall()
             trlist = [text.strip() for text in trlist]
             eyerelief()
+            if len(exlist) == 0:
+                print(f'{colors.warning("ERROR - NO RESULTS RETURNED; SKIPPING" + response.url[44:])}')
+                self.faillist.append(response.url[44:])
+                break
             for ex, tr in zip(exlist, trlist):
                 print(f'{n}\n{colors.bluetext(ex)}\n{colors.information(tr)}')
                 n += 1

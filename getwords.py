@@ -73,6 +73,11 @@ def getgermanwords():
             process = CrawlerProcess(get_project_settings())
             process.crawl(GermanSpider)
             process.start()
+            if len(GermanSpider.faillist) > 0:
+                print(colors.warning(
+                    "Failed to retrieve the following words:"))
+                for item in GermanSpider.faillist:
+                    print(colors.warning(item))
 
 
 getgermanwords()

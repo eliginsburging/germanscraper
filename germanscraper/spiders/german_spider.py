@@ -32,9 +32,9 @@ class GermanSpider(scrapy.Spider):
                 break
             n = 0
             exlist = response.xpath('//*/div[@class="additional-entry"]/div[@class="col2"]/div[@class="text-to-speech"]/@data-text').getall()
-            exlist += response.xpath('//*[@id="inner-content"]/section[2]/descendant::*/div[@class="col2"]/div/span/text()').getall()
+            exlist += response.xpath('//*[@id="inner-content"]/section[@class="more example external-example"]/descendant::*/div[@class="col2"]/div/span/text()').getall()
             trlist = response.xpath('//*/div[@class="additional-entry"]/div[@class="col1"]/div[2]/div[@class="text-to-speech"]/@data-text').getall()
-            trlist += response.xpath('//*[@id="inner-content"]/section[2]/descendant::*/div[@class="col1"]/div[@class="trans-line"]/div/text()').getall()
+            trlist += response.xpath('//*[@id="inner-content"]/section[@class="more example external-example"]/descendant::*/div[@class="col1"]/div[@class="trans-line"]/div/text()').getall()
             trlist = [text.strip() for text in trlist]
             eyerelief()
             if len(exlist) == 0:

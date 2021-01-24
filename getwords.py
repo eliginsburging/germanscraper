@@ -10,7 +10,7 @@ from germanscraper.spiders.german_spider import GermanSpider
 
 def getgermanwords():
     """
-    validates the contents of the list of spanish words to scrape and runs the
+    validates the contents of the list of German words to scrape and runs the
     spider to scrape them
     """
     toscrape = True
@@ -23,23 +23,20 @@ def getgermanwords():
         print(colors.warning('In order to scrape example sentences, you must '
                              'first create a file in the same directory as '
                              'getwords.py that contains a list of single '
-                             'Spanish words, each on its own line.'))
+                             'German words, each on its own line.'))
         toscrape = False
     else:
         with open('toscrape.txt') as f:
             warning1 = "toscrape.txt improperly formatted"
             warning2 = ("It appears that toscrape.txt is improperly formatted."
-                        " the file should contain only single Spanish words on"
+                        " the file should contain only single German words on"
                         " new lines. Exiting.")
-            if f.read() == '':
-                print(colors.warning(warning1 + '\n' + warning2))
-                toscrape = False
-            else:
-                for line in f:
-                    if not validate_line(line):
-                        toscrape = False
-                        print(colors.warning(warning1 + '\n' + warning2))
-                        break
+            content = f.readlines()
+            for item in content:
+                if not validate_line(item.replace('\n', '')):
+                    toscrape = False
+                    print(colors.warning(warning1 + '\n' + warning2))
+                    break
     if toscrape:
         with open('toscrape.txt') as f:
             print(colors.prompt(
